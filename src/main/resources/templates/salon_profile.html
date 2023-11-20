@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<table class="table" >
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">Employees</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:object="${salonFound}">
+        <th scope="row" th:text="${salonFound.id}"></th>
+        <td th:text="${salonFound.name}">Mark</td>
+        <td th:text="${salonFound.address}">Otto</td>
+    </tr>
+  <tr th:each="em : ${salonFound.employeeList}">
+      <form th:method="post" th:action="@{'/customer/' + ${customer.id} + '/createBooking/' + ${em.id}}" >
+      <td>
+            <p th:text="${em.name}"></p>
+        </td>
+        <td>
+            <label>
+                <input type="checkbox" th:value="${em.id}" th:name="emId">
+            </label>
+
+        </td>
+          <button type="submit" th:value="Book" >
+          </button>
+      </form>
+    </tr>
+
+    </tbody>
+</table>
+
+<form th:method="get" th:action="@{'/salon/' + ${salonFound.id} + '/notAssignedEmployees'}">
+    <input type="submit" th:value="Assign">
+</form>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</html>
